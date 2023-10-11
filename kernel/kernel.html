@@ -6,132 +6,28 @@
         <link rel="stylesheet" href="kernel.css">
         <script src="kernel.mjs" type="module"></script>
         <script src="math.js" type="text/javascript"></script>
+
     </head>
 
     <body>
         <div class="main_container">
             <div id="canvas" class="canvas"></div>
             <div class="menu_container">
-
-                <div class="linesChoices" id="menu">
-                    <!--
-                    <div class="header_choice">Линии первого порядка:</div>
-
-                    <div>
-                        <input type="radio" name="choice" id="lineChoice1" value="CDA" checked>
-                        <label for="lineChoice1">Алгоритм ЦДА</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" name="choice" id="lineChoice2" value="Brezenchema">
-                        <label for="lineChoice2">Алгоритм Брезенхема</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" name="choice" id="lineChoice3" value="Vu">
-                        <label for="lineChoice3">Алгоритм Ву</label>
-                    </div>
-
-                    <div class="header_choice">Линии второго порядка:</div>
-
-                    <div>
-                        <input type="radio" name="choice" id="line2Choice1" value="Circle">
-                        <label for="line2Choice1">Круг</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" name="choice" id="line2Choice2" value="Ellipse">
-                        <label for="line2Choice2">Эллипс</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" name="choice" id="line2Choice3" value="Hyperbola">
-                        <label for="line2Choice3">Гипербола</label>
-                        a=<input min="1" max="10" value="2" type="number" id="giperbola_A" class="param_input"/>
-                        b=<input min="1" max="10" value="2" type="number" id="giperbola_B" class="param_input"/>
-                    </div>
-
-                    <div>
-                        <input type="radio" name="choice" id="line2Choice4" value="Parabola">
-                        <label for="line2Choice4">Парабола</label>
-                        a=<input min="1" max="10" value="2" type="number" id="parabola_A" class="param_input"/>
-                    </div>
-
-                    <div class="header_choice">Кривые:</div>
-
-                    <div>
-                        <input type="radio" name="choice" id="curveChoice1" value="CurveErmit">
-                        <label for="curveChoice1">Кривая Эрмита</label>
-                        <br/>
-                        P1: x=<input min="0" max="50" value="0" type="number" id="ermit_1_x" class="param_input"/>
-                        y=<input min="0" max="50" value="0" type="number" id="ermit_1_y" class="param_input"/>
-                        <br/>
-                        P2: x=<input min="0" max="50" value="20" type="number" id="ermit_2_x" class="param_input"/>
-                        y=<input min="0" max="50" value="20" type="number" id="ermit_2_y" class="param_input"/>
-                        <br/>
-                        R1: x=<input min="0" max="50" value="20" type="number" id="ermit_3_x" class="param_input"/>
-                        y=<input min="0" max="50" value="0" type="number" id="ermit_3_y" class="param_input"/>
-                        <br/>
-                        R2: x=<input min="0" max="50" value="0" type="number" id="ermit_4_x" class="param_input"/>
-                        y=<input min="0" max="50" value="20" type="number" id="ermit_4_y" class="param_input"/>
-                    </div>
-
-                    <div>
-                        <input type="radio" name="choice" id="line2Choice2" value="CurveBezie">
-                        <label for="curveChoice2">Кривая Безье</label>
-                        <br/>
-                        P1: x=<input min="0" max="50" value="2" type="number" id="bezie_1_x" class="param_input"/>
-                        y=<input min="0" max="50" value="2" type="number" id="bezie_1_y" class="param_input"/>
-                        <br/>
-                        P2: x=<input min="0" max="50" value="0" type="number" id="bezie_2_x" class="param_input"/>
-                        y=<input min="0" max="50" value="20" type="number" id="bezie_2_y" class="param_input"/>
-                        <br/>
-                        P3: x=<input min="0" max="50" value="20" type="number" id="bezie_3_x" class="param_input"/>
-                        y=<input min="0" max="50" value="0" type="number" id="bezie_3_y" class="param_input"/>
-                        <br/>
-                        P4: x=<input min="0" max="50" value="20" type="number" id="bezie_4_x" class="param_input"/>
-                        y=<input min="0" max="50" value="20" type="number" id="bezie_4_y" class="param_input"/>
-                    </div>
-
-                    <div>
-                        <input type="radio" name="choice" id="line2Choice3" value="B_spline">
-                        <label for="curveChoice3">В-сплайн</label>
-                        <br/>
-                        P1: x=<input min="0" max="50" value="2" type="number" id="bspline_1_x" class="param_input"/>
-                        y=<input min="0" max="50" value="2" type="number" id="bspline_1_y" class="param_input"/>
-                        <br/>
-                        P2: x=<input min="0" max="50" value="0" type="number" id="bspline_2_x" class="param_input"/>
-                        y=<input min="0" max="50" value="20" type="number" id="bspline_2_y" class="param_input"/>
-                        <br/>
-                        P3: x=<input min="0" max="50" value="20" type="number" id="bspline_3_x" class="param_input"/>
-                        y=<input min="0" max="50" value="0" type="number" id="bspline_3_y" class="param_input"/>
-                        <br/>
-                        P4: x=<input min="0" max="50" value="20" type="number" id="bspline_4_x" class="param_input"/>
-                        y=<input min="0" max="50" value="20" type="number" id="bspline_4_y" class="param_input"/>
-                        <br/>
-                        P5: x=<input min="0" max="50" value="2" type="number" id="bspline_5_x" class="param_input"/>
-                        y=<input min="0" max="50" value="0" type="number" id="bspline_5_y" class="param_input"/>
-                        <br/>
-                        P6: x=<input min="0" max="50" value="2" type="number" id="bspline_6_x" class="param_input"/>
-                        y=<input min="0" max="50" value="2" type="number" id="bspline_6_y" class="param_input"/>
-                    </div>
-
-                -->
-                </div>
-
-
+                <div class="linesChoices" id="menu"></div>
 
                 <button id="clearPoints" class="clear_button">Очистить</button>
                 <div class="debugSettings">
                     <input type="checkbox" id="debugTrigger" name="debug"
                                value="debug" />
                     <label for="debug">Debug</label>
-                    <button id="prevPoint" class="custom_button" disabled>Назад</button>
-                    <button id="nextPoint" class="custom_button" disabled>Вперед</button>
-                    <button id="finishDebug" class="custom_button" disabled>Закончить</button>
+                    <div class="debugButtons">
+                        <button id="prevPoint" class="custom_button" disabled>Назад</button>
+                        <button id="nextPoint" class="custom_button" disabled>Вперед</button>
+                        <button id="finishDebug" class="custom_button" disabled>Закончить</button>
+                    </div>
+                    <div id="stepInfo" class="stepInfo" hidden>Empty</div>
                 </div>
 
-                <label id="stepInfo" class="stepInfo" hidden>Empty</label>
 
             </div>
         </div>

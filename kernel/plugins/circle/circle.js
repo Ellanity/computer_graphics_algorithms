@@ -1,17 +1,15 @@
 export function drawCircle(editor, Ox=0, Oy=0, x1=10, y1=10)
 {
     let parsed_data = dataParserCircle(editor)
-    // console.log(parsed_data)
-    // console.log(calcRadius(parsed_data[0],parsed_data[1],parsed_data[2],parsed_data[3]))
-    // let radius = calcRadius(parsed_data[0],parsed_data[1],parsed_data[2],parsed_data[3])
 
     Ox = parsed_data[0]
     Oy = parsed_data[1]
     x1 = parsed_data[2]
     y1 = parsed_data[3]
-    //console.log(Ox, Oy, x1, y1)
     let radius = calcRadius(Ox, Oy, x1, y1);
-    //console.log("drawCircle", parsed_data, radius)
+
+    let info = "New circle with radius " + "r = " + radius.toString()
+    editor.printInDebug(info)
 
     let x = 0;
     let y = radius;
@@ -46,8 +44,8 @@ export function drawCircle(editor, Ox=0, Oy=0, x1=10, y1=10)
 }
 
 function calcRadius(Ox, Oy, x, y) {
-    var max = Math.max(Math.abs(x - Ox), Math.abs(y - Oy));
-    var min = Math.min(Math.abs(x - Ox), Math.abs(y - Oy));
+    let max = Math.max(Math.abs(x - Ox), Math.abs(y - Oy));
+    let min = Math.min(Math.abs(x - Ox), Math.abs(y - Oy));
     return Math.sqrt(Math.pow(max,2.0) + Math.pow(min,2.0)).toFixed(0);
 }
 

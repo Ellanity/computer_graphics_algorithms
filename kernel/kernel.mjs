@@ -2,7 +2,9 @@ import { Plugins } from "./plugins/plugins.mjs";
 
 class Canvas {
     constructor() {
-        this.tableCreate(51, 51);
+        this.width = 51
+        this.height = 51
+        this.tableCreate(this.width, this.height);
     }
 
     tableCreate(n, m) {
@@ -47,8 +49,8 @@ class Editor {
         this.stepPoints = [];
         this.startPoint = null;
         this.endPoint = null;
-        this.numSteps;
-        this.currentStep;
+        this.numSteps = 0;
+        this.currentStep = 0;
 
         this.stepInfoLabel = document.getElementById("stepInfo");
 
@@ -60,7 +62,10 @@ class Editor {
         })
         chaptersInMenu.forEach((chapter)=> {
             let chap = chapter.toString()
-            linesChoices.innerHTML +=  '<div class="header_choice" id="header_choice_' + chap + '">' + chap + '</div>'
+            linesChoices.innerHTML +=
+            '<div class="header_choice" id="header_choice_' + chap + '">' +
+                '<div style="margin-bottom: 14px;">' + chap+ '</div>' +
+            '</div>'
         })
 
         Plugins.forEach((plugin) => {
@@ -98,6 +103,7 @@ class Editor {
                     }
                     if (!this.startPoint) {
                         this.startPoint = { x: coord_x, y: coord_y };
+                        // this.drawPoint(x, y, 10)
                         return;
                     } else {
                         this.endPoint = { x: coord_x, y: coord_y };
@@ -123,8 +129,7 @@ class Editor {
                     break;
             }
 
-
-            switch (e.target.id) {
+            switch (e.target.id.toString()) {
                 case "clearPoints":
                     this.clearColored();
                     break;
@@ -142,10 +147,15 @@ class Editor {
                     this.stepInfoLabel.innerHTML = '';
                     this.currentStep = this.numSteps - 1;
                     this.drawPoints(this.data);
+                    this.currentStep = 0
                 default:
                     break;
             }
         });
+    }
+
+    printInDebug(text, separator="\n") {
+        this.stepInfoLabel.innerHTML += text + separator
     }
 
     turnDebug(value) {
@@ -174,10 +184,13 @@ class Editor {
 
     nextPoint() {
         this.clearStep();
-        if (typeof (this.currentStep) !== "number" || this.currentStep === this.numSteps - 1)
+        if (typeof (this.currentStep) !== "number" ||
+            this.currentStep === this.numSteps - 1 ||
+            this.stepInfo.length === 0)
             return;
 
         this.currentStep++;
+
         this.drawPoint(this.data[this.currentStep].x, this.data[this.currentStep].y, this.data[this.currentStep].br || null);
 
 
@@ -268,3 +281,20 @@ class Editor {
 window.onload = () => {
     const editor = new Editor();
 };
+
+
+// PLUGINS IFRAMES RESIZE ONLOAD
+/*
+function resizeIFrameToFitContent( iFrame ) {
+
+    iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+    iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+}
+
+window.addEventListener('DOMContentLoaded', function(e) {
+    // or, to resize all iframes:
+    let iframes = document.querySelectorAll("iframe");
+    for( let i = 0; i < iframes.length; i++) {
+        resizeIFrameToFitContent( iframes[i] );
+    }
+} );*/

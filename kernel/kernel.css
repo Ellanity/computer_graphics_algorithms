@@ -2,6 +2,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	/*font-family: "Roboto", sans-serif;*/
+	overflow: hidden;
 }
 
 table{
@@ -50,14 +51,22 @@ td.step{
 	border: none;
 	border-radius: 8px;
 	background-color: #333333;
-	color: #DFDFDF;
+	//color: #DFDFDF;
+	color: #EEEEEE;
 	text-decoration: none;
 	font-size: 20px;
 	margin: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.debugButtons {
+	margin-bottom: 20px;
 }
 
 .custom_button:disabled, .clear_button:disabled{
 	background-color: #EEEEEE;
+	color: gray;
 }
 
 .menu_container{
@@ -67,18 +76,29 @@ td.step{
     justify-content: flex-start;
 }
 
-.linesChoices, .debugSettings{
+.debugSettings{
 	margin: 10px;
 }
 
 .linesChoices{
+	max-height: 70vh;
+	padding: 10px;
 	display: flex;
 	flex-direction: column;
 }
 
-.stepInfo{
-	min-height: 10px;
-	min-width: 300px;
+#stepInfo{
+	margin-left: 5px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+
+	min-height: 100px;
+	//min-width: 300px;
+
+	//width: 100%;
+	width: auto;
+	height: 100%;
+
 	padding: 10px;
     border: solid 1px;
 }
@@ -93,12 +113,22 @@ td.step{
 }
 
 iframe {
-	width: 100%;
+	overflow: hidden;
 	border: 0;
+	width: 100%;
+	height: 5vh;
 }
 
 html, body{
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+}
+
+.header_choice {
+	/*height: 50px;*/
+}
+
+#clearPoints {
+	margin-left: 13px;
 }

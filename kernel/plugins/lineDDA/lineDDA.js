@@ -5,6 +5,7 @@ export function drawLineDDA(editor, x1, y1, x2, y2)
     y1 = parsed_data[1]
     x2 = parsed_data[2]
     y2 = parsed_data[3]
+    console.log("LineDDA", parsed_data)
 
     let points = [];
     points.push({ x: x1, y: y1 });
@@ -25,8 +26,9 @@ export function drawLineDDA(editor, x1, y1, x2, y2)
     points.push({ x: parseInt(x), y: parseInt(y) });
 
     if (editor.debug) {
-        editor.stepInfo.push("Select start point " + "x=" + x1 + ", y=" + y1);
+        editor.stepInfo.push("Select start point " + "x=" + x1.toFixed(3) + ", y=" + y1.toFixed(3));
         let steps = [];
+
         if (x1 === x2) {
             steps.push({ x: parseInt(x), y: parseInt(y + Math.sign(dy)) });
         } else if (y1 === y2) {
@@ -49,7 +51,7 @@ export function drawLineDDA(editor, x1, y1, x2, y2)
         i++;
 
         if (editor.debug) {
-            editor.stepInfo.push("Select current point, because x=" + x + ", y=" + y);
+            editor.stepInfo.push("Select current point, because x=" + x.toFixed(3) + ", y=" + y.toFixed(3));
             let steps = [];
             if (i <= length) {
                 if (x1 === x2) {
