@@ -4,4 +4,4 @@ Install with npm simple server
 Go to main folder and run command
 ```http-server```
 
-Go to [localhost](http://192.168.56.1:8080) to work with app
+Go to [192.168.56.1:8080](http://192.168.56.1:8080) to work with app

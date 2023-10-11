@@ -1,15 +1,17 @@
 export function drawCircle(editor, Ox=0, Oy=0, x1=10, y1=10)
 {
     let parsed_data = dataParserCircle(editor)
-    console.log(parsed_data)
-    console.log(calcRadius(parsed_data[0],parsed_data[1],parsed_data[2],parsed_data[3]))
+    // console.log(parsed_data)
+    // console.log(calcRadius(parsed_data[0],parsed_data[1],parsed_data[2],parsed_data[3]))
+    // let radius = calcRadius(parsed_data[0],parsed_data[1],parsed_data[2],parsed_data[3])
 
-    /*Ox = parsed_data[0]
-    Oy = parsed_data[2]
-    x1 = parsed_data[3]
-    y1 = parsed_data[4]
-    let radius = calcRadius(Ox, Oy, x1, y1);*/
-    let radius = calcRadius(parsed_data[0],parsed_data[1],parsed_data[2],parsed_data[3])
+    Ox = parsed_data[0]
+    Oy = parsed_data[1]
+    x1 = parsed_data[2]
+    y1 = parsed_data[3]
+    //console.log(Ox, Oy, x1, y1)
+    let radius = calcRadius(Ox, Oy, x1, y1);
+    //console.log("drawCircle", parsed_data, radius)
 
     let x = 0;
     let y = radius;

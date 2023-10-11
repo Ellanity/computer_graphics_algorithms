@@ -54,10 +54,19 @@ class Editor {
 
         // plugins
         let linesChoices = document.getElementById('menu');
+        let chaptersInMenu = new Set();
         Plugins.forEach((plugin) => {
-                linesChoices.innerHTML +=  '<iframe src="plugins/' + plugin.form + '" name="app_frame" scrolling="false"></iframe>'
-            }
-        );
+            chaptersInMenu.add(plugin.chapter)
+        })
+        chaptersInMenu.forEach((chapter)=> {
+            let chap = chapter.toString()
+            linesChoices.innerHTML +=  '<div class="header_choice" id="header_choice_' + chap + '">' + chap + '</div>'
+        })
+
+        Plugins.forEach((plugin) => {
+            let chapter = document.getElementById(('header_choice_' + plugin.chapter.toString()));
+            chapter.innerHTML +=  '<iframe src="plugins/' + plugin.form + '" name="app_frame" scrolling="false"></iframe>'
+        });
 
         // event listener
         document.addEventListener("click", e => {
@@ -65,20 +74,22 @@ class Editor {
             switch (e.target.tagName) {
                 case "TD":
                     // GETTING RADIO BUTTONS FROM FORMS
-                    let radioButtons = Array()
+                    let checkBoxButtons = Array()
                     document.getElementsByName("app_frame").forEach((sub_doc) => {
-                        radioButtons = radioButtons.concat(
+                        checkBoxButtons = checkBoxButtons.concat(
                             Array.prototype.slice.call(
                                 sub_doc.contentDocument.getElementsByClassName("choice")
                             )
                         )
                     })
                     let type = 0;
-                    for (let x = 0; x < radioButtons.length; x++) {
-                        if (radioButtons[x].checked) {
-                            type = radioButtons[x].value;
+                    for (let x = 0; x < checkBoxButtons.length; x++) {
+                        if (checkBoxButtons[x].checked) {
+                            type = checkBoxButtons[x].value;
                         }
                     }
+
+                    // WORK WITH POINTS
                     const coord_x = parseInt(e.target.getAttribute("coord_x"));
                     const coord_y = parseInt(e.target.getAttribute("coord_y"));
                     if (this.endPoint) {
@@ -101,114 +112,13 @@ class Editor {
                     if (this.startPoint.x === this.endPoint.x && this.startPoint.y === this.endPoint.y) {
                         return;
                     }
+
                     // ADDING PLUGINS
                     Plugins.forEach((plugin) => {
                         if (plugin.name.toString() === type.toString()) {
                             plugin.execute(this)
                         }
                     });
-                    /*
-                    switch (type) {
-                        case "CDA":
-                            this.drawLineDDA(this.startPoint.x, this.startPoint.y, this.endPoint.x, this.endPoint.y);
-                            break;
-                        case "Brezenchema":
-                            this.drawLineBraz(this.startPoint.x, this.startPoint.y, this.endPoint.x, this.endPoint.y);
-                            break;
-                        case "Vu":
-                            this.drawLineVu(this.startPoint.x, this.startPoint.y, this.endPoint.x, this.endPoint.y);
-                            break;
-                        case "Circle":
-                            this.drawCircle(this.startPoint.x, this.startPoint.y, this.endPoint.x, this.endPoint.y);
-                            break;
-                        case "Ellipse":
-                            this.drawEllipse(this.startPoint.x, this.startPoint.y, this.endPoint.x, this.endPoint.y);
-                            break;
-                        case "Hyperbola":
-                            let a = parseInt(document.getElementById("giperbola_A").value);
-                            let b = parseInt(document.getElementById("giperbola_B").value);
-                            this.drawHyperbola(a, b);
-                            break;
-                        case "Parabola":
-                            let a = parseInt(document.getElementById("parabola_A").value);
-                            this.drawParabola(a);
-                            break;
-                        case "CurveErmit":
-                            let p1_x = parseInt(document.getElementById("ermit_1_x").value);
-                            let p1_y = parseInt(document.getElementById("ermit_1_y").value);
-                            let p4_x = parseInt(document.getElementById("ermit_2_x").value);
-                            let p4_y = parseInt(document.getElementById("ermit_2_y").value);
-                            let r1_x = parseInt(document.getElementById("ermit_3_x").value);
-                            let r1_y = parseInt(document.getElementById("ermit_3_y").value);
-                            let r4_x = parseInt(document.getElementById("ermit_4_x").value);
-                            let r4_y = parseInt(document.getElementById("ermit_4_y").value);
-                            let points = [
-                                { x: p1_x, y: p1_y },
-                                { x: p4_x, y: p4_y },
-                                { x: r1_x, y: r1_y },
-                                { x: r4_x, y: r4_y }
-                            ];
-                            points.forEach(elem => {
-                                let element = document.getElementsByClassName(elem.x + "_" + elem.y)[0];
-                                element.classList.add("end");
-                            });
-                            this.drawCurveErmit(points);
-                            break;
-                        case "CurveBezie":
-                            let p1_x = parseInt(document.getElementById("bezie_1_x").value);
-                            let p1_y = parseInt(document.getElementById("bezie_1_y").value);
-                            let p2_x = parseInt(document.getElementById("bezie_2_x").value);
-                            let p2_y = parseInt(document.getElementById("bezie_2_y").value);
-                            let p3_x = parseInt(document.getElementById("bezie_3_x").value);
-                            let p3_y = parseInt(document.getElementById("bezie_3_y").value);
-                            let p4_x = parseInt(document.getElementById("bezie_4_x").value);
-                            let p4_y = parseInt(document.getElementById("bezie_4_y").value);
-                            let points = [
-                                { x: p1_x, y: p1_y },
-                                { x: p2_x, y: p2_y },
-                                { x: p3_x, y: p3_y },
-                                { x: p4_x, y: p4_y }
-                            ];
-                            points.forEach(elem => {
-                                let element = document.getElementsByClassName(elem.x + "_" + elem.y)[0];
-                                element.classList.add("end");
-                            });
-                            this.drawCurveBezie(points);
-                            break;
-                        case "B_spline":
-                            let p1_x = parseInt(document.getElementById("bspline_1_x").value);
-                            let p1_y = parseInt(document.getElementById("bspline_1_y").value);
-                            let p2_x = parseInt(document.getElementById("bspline_2_x").value);
-                            let p2_y = parseInt(document.getElementById("bspline_2_y").value);
-                            let p3_x = parseInt(document.getElementById("bspline_3_x").value);
-                            let p3_y = parseInt(document.getElementById("bspline_3_y").value);
-                            let p4_x = parseInt(document.getElementById("bspline_4_x").value);
-                            let p4_y = parseInt(document.getElementById("bspline_4_y").value);
-                            let p5_x = parseInt(document.getElementById("bspline_5_x").value);
-                            let p5_y = parseInt(document.getElementById("bspline_5_y").value);
-                            let p6_x = parseInt(document.getElementById("bspline_6_x").value);
-                            let p6_y = parseInt(document.getElementById("bspline_6_y").value);
-                            let points = [
-                                { x: p1_x, y: p1_y },
-                                { x: p2_x, y: p2_y },
-                                { x: p3_x, y: p3_y },
-                                { x: p4_x, y: p4_y },
-                                { x: p5_x, y: p5_y },
-                                { x: p6_x, y: p6_y }
-                            ];
-                            console.log(points);
-                            points.forEach(elem => {
-                                let element = document.getElementsByClassName(elem.x + "_" + elem.y)[0];
-                                element.classList.add("end");
-                            });
-                            this.drawCurveBSpline(points);
-                            break;
-                        default:
-                            alert("Error" + type);
-                            break;
-                    }
-
-                    break;*/
                 default:
                     break;
             }
