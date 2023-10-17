@@ -5,7 +5,6 @@ export function drawLineDDA(editor, x1, y1, x2, y2)
     y1 = parsed_data[1]
     x2 = parsed_data[2]
     y2 = parsed_data[3]
-    console.log("LineDDA", parsed_data)
 
     let points = [];
     points.push({ x: x1, y: y1 });
