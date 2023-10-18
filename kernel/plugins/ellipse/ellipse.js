@@ -21,27 +21,27 @@ export function drawEllipse(editor, x1, y1, x2, y2) {
     editor.printInDebug(info)
 
     let points = [];
-    points.push({ x: x, y: y});
+    points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
 
     while (y > 0) {
         let sigma = 2 * delta - 2 * x * bPow2 - 1;
         if (delta > 0 && sigma > 0) {
             y -= 1;
             delta += aPow2 - 2 * y * aPow2;
-            points.push({ x: x, y: y});
+            points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
             continue;
         }
         let sigma_ = 2 * delta + 2 * y * aPow2 - 1
         if (delta < 0 && sigma_ <= 0) {
             x += 1;
             delta += bPow2 + 2 * x * bPow2;
-            points.push({ x: x, y: y});
+            points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
             continue;
         }
         x += 1;
         y -= 1;
         delta += bPow2 * (2 * x + 1) + aPow2 * (1 - 2 * y);
-        points.push({ x: x, y: y});
+        points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
     }
 
     editor.drawPoints(points);

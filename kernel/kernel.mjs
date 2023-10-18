@@ -14,6 +14,7 @@ class Canvas {
         tbl.setAttribute('border', '1');
         let tbody = document.createElement('tbody');
 
+        // comment for symmetry
         for (let i = 0; i < n; i++) {
             let tr = document.createElement('tr');
             for (let j = 0; j < m; j++) {
@@ -103,7 +104,6 @@ class Editor {
                     }
                     if (!this.startPoint) {
                         this.startPoint = { x: coord_x, y: coord_y };
-                        // this.drawPoint(x, y, 10)
                         return;
                     } else {
                         this.endPoint = { x: coord_x, y: coord_y };
@@ -212,27 +212,63 @@ class Editor {
 
     drawPoints(points) {
         if (!points || !(points.length > 0)) return;
-        if (points[0].br) {
-            points.forEach(point => {
-                this.drawPoint(point.x, point.y, point.br);
-            });
-        } else {
-            points.forEach(point => {
-                this.drawPoint(point.x, point.y);
-            });
-        }
+
+        points.forEach(point => {
+            this.drawPoint(point.x, point.y, point.br, point.quadrants);
+        });
     }
 
-    drawPoint(x, y, br) {
-        if (br) {
-            let element = document.getElementsByClassName(x + "_" + y)[0];
-            if (!element) return;
-            element.style.backgroundColor = "hsla(0, 0%, 0%, " + br.toFixed(2) + ")";
-        } else {
-            let element = document.getElementsByClassName(x + "_" + y)[0];
-            if (!element) return;
+    drawPoint(x, y, br = 1, quadrants = [false, false, false, false]) {
+        let elements = []
 
+        if (!quadrants.includes(true))
+        {
+            let element = document.getElementsByClassName(x + "_" + y)[0];
+            if (!element) return;
             element.classList.add("colored");
+            elements.push(element)
+        }
+
+        else
+        {
+            let center_height = Math.round(this.canvas.height / 2)
+            let center_width = Math.round(this.canvas.width / 2)
+            // можно сократить до двух ифок и цикла, но мне впадлу
+            if (quadrants[0] === true) {
+                let element0 = document.getElementsByClassName(
+                    (center_width + x).toString() + "_" + (center_height + y).toString())[0];
+                if (!element0) return;
+                element0.classList.add("colored");
+                elements.push(element0)
+            }
+            if (quadrants[1] === true) {
+                let element1 = document.getElementsByClassName(
+                    (center_width - x).toString() + "_" + (center_height + y).toString())[0];
+                if (!element1) return;
+                element1.classList.add("colored");
+                elements.push(element1)
+            }
+            if (quadrants[2] === true) {
+                let element2 = document.getElementsByClassName(
+                    (center_width + x).toString() + "_" + (center_height - y).toString())[0];
+                if (!element2) return;
+                element2.classList.add("colored");
+                elements.push(element2)
+            }
+            if (quadrants[3] === true) {
+                let element3 = document.getElementsByClassName(
+                    (center_width - x).toString() + "_" + (center_height - y).toString())[0];
+                if (!element3) return;
+                element3.classList.add("colored");
+                elements.push(element3)
+            }
+        }
+
+        if (br) {
+            elements.forEach((element)=> {
+                if (br !== 1)
+                    element.style.backgroundColor = "hsla(0, 0%, 0%, " + br.toFixed(2) + ")";
+            })
         }
     }
 

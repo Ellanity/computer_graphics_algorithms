@@ -17,14 +17,14 @@ export function drawCircle(editor, Ox=0, Oy=0, x1=10, y1=10)
     let delta = 2 - 2 * radius;
 
     let points = [];
-    points.push({ x: x, y: y});
+    points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
 
     while (y > limit) {
         let sigma = 2 * delta - 2 * x - 1;
         if (delta > 0 && sigma > 0) {
             y -= 1;
             delta += 1 - 2 * y;
-            points.push({ x: x, y: y});
+            points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
             continue;
         }
         let sigma_ = 2 * delta + 2 * y - 1
@@ -32,13 +32,13 @@ export function drawCircle(editor, Ox=0, Oy=0, x1=10, y1=10)
         if (delta < 0 && sigma_ <= 0) {
             x += 1;
             delta += 1 + 2 * x;
-            points.push({ x: x, y: y});
+            points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
             continue;
         }
         x += 1;
         y -= 1;
         delta += 2 * x - 2 * y + 2;
-        points.push({ x: x, y: y});
+        points.push({ x: parseInt(x), y: parseInt(y), quadrants: [true, true, true, true]});
     }
     editor.drawPoints(points);
 }
