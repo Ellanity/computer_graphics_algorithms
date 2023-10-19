@@ -45,10 +45,10 @@ function dataParserCurveBSpline(editor) {
         try { p3_y = parseInt(sub_doc.contentDocument.getElementById("bspline_3_y").value); } catch {}
         try { p4_x = parseInt(sub_doc.contentDocument.getElementById("bspline_4_x").value); } catch {}
         try { p4_y = parseInt(sub_doc.contentDocument.getElementById("bspline_4_y").value); } catch {}
-        try { p5_x = parseInt(sub_doc.contentDocument.getElementById("bspline_3_x").value); } catch {}
-        try { p5_y = parseInt(sub_doc.contentDocument.getElementById("bspline_3_y").value); } catch {}
-        try { p6_x = parseInt(sub_doc.contentDocument.getElementById("bspline_4_x").value); } catch {}
-        try { p6_y = parseInt(sub_doc.contentDocument.getElementById("bspline_4_y").value); } catch {}
+        try { p5_x = parseInt(sub_doc.contentDocument.getElementById("bspline_5_x").value); } catch {}
+        try { p5_y = parseInt(sub_doc.contentDocument.getElementById("bspline_5_y").value); } catch {}
+        try { p6_x = parseInt(sub_doc.contentDocument.getElementById("bspline_6_x").value); } catch {}
+        try { p6_y = parseInt(sub_doc.contentDocument.getElementById("bspline_6_y").value); } catch {}
     })
 
     let points = [
