@@ -17,27 +17,27 @@ export function drawHyperbola(editor, a, b) {
     editor.printInDebug(info)
 
     let points = [];
-    points.push({ x: x, y: y });
+    points.push({ x: x, y: y, quadrants: [true, true, false, false] });
 
     while (y < editor.canvas.height - 1 && x < editor.canvas.width - 1) {
         let sigma = 2 * delta - aPow2 * (2 * y + 1);
         if (delta > 0 && sigma > 0) {
             x += 1;
             delta -= bPow2 * (2 * x + 1);
-            points.push({ x: x, y: y });
+            points.push({ x: x, y: y, quadrants: [true, true, false, false] });
             continue;
         }
         let sigma_ = 2 * delta + bPow2 * (2 * x + 1);
         if (delta < 0 && sigma_ <= 0) {
             y += 1;
             delta += aPow2 * (2 * y + 1);
-            points.push({ x: x, y: y });
+            points.push({ x: x, y: y, quadrants: [true, true, false, false] });
             continue;
         }
         x += 1;
         y += 1;
         delta += aPow2 * (2 * y + 1) - bPow2 * (2 * x + 1);
-        points.push({ x: x, y: y });
+        points.push({ x: x, y: y, quadrants: [true, true, false, false] });
     }
 
     editor.drawPoints(points);

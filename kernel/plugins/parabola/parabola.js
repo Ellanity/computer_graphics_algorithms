@@ -13,27 +13,27 @@ export function drawParabola(editor, a) {
     editor.printInDebug(info)
 
     let points = [];
-    points.push({ x: x, y: y});
+    points.push({ x: x, y: y, quadrants: [true, true, false, false]});
 
     while (y > 0) {
         let sigma = 2 * delta - 2 * x - 1;
         if (delta > 0 && sigma > 0) {
             y -= 1;
             delta -= 2 * a;
-            points.push({ x: x, y: y});
+            points.push({ x: x, y: y, quadrants: [true, true, false, false]});
             continue;
         }
         let sigma_ = 2 * delta + 2 * a
         if (delta < 0 && sigma_ <= 0) {
             x += 1;
             delta += 2 * x + 1;
-            points.push({ x: x, y: y});
+            points.push({ x: x, y: y, quadrants: [true, true, false, false]});
             continue;
         }
         x += 1;
         y -= 1;
         delta += 2 * x + 1 - 2 * a;
-        points.push({ x: x, y: y});
+        points.push({ x: x, y: y, quadrants: [true, true, false, false]});
     }
 
     editor.drawPoints(points);

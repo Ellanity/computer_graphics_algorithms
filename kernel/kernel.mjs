@@ -3,8 +3,8 @@ import { Plugins } from "./plugins/plugins.mjs";
 class Canvas {
     constructor() {
         this.width = 51
-        this.height = 51
-        this.tableCreate(this.width, this.height);
+        this.height = 75
+        this.tableCreate(this.height, this.width);
     }
 
     tableCreate(n, m) {
@@ -225,13 +225,38 @@ class Editor {
     drawPoint(x, y, br = 1, quadrants = [false, false, false, false]) {
         let elements = []
 
-        if (!quadrants.includes(true))
-        {
-            let element = document.getElementsByClassName(x + "_" + y)[0];
+        /*
+            if (!quadrants.includes(true))
+            {
+                let element = document.getElementsByClassName(x + "_" + y)[0];
+                if (!element) return;
+                element.classList.add("colored");
+                elements.push(element)
+        }*/
+
+        if (quadrants.toString() === [false, false, false, false].toString()) {
+            let element = document.getElementsByClassName(x.toString() + "_" + y.toString())[0];
             if (!element) return;
             element.classList.add("colored");
             elements.push(element)
         }
+        else if (quadrants.toString() === [true, true, false, false].toString()) {
+            let center_height = Math.round(this.canvas.height / 2)
+            let center_width = Math.round(this.canvas.width / 2)
+            // left
+            let element0 = document.getElementsByClassName(
+                (center_width - x - 1).toString() + "_" + y.toString())[0];
+            if (!element0) return;
+            element0.classList.add("colored");
+            elements.push(element0)
+            // right
+            let element1 = document.getElementsByClassName(
+                (center_width + x - 1).toString() + "_" + + y.toString())[0];
+            if (!element1) return;
+            element1.classList.add("colored");
+            elements.push(element1)
+        }
+
 
         else
         {
