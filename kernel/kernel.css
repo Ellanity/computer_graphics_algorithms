@@ -2,7 +2,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	/*font-family: "Roboto", sans-serif;*/
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 table{
@@ -70,7 +70,8 @@ td.step{
 }
 
 .menu_container{
-	display: flex;
+	/*display: flex;*/
+	display: table-column;
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-start;
@@ -81,7 +82,7 @@ td.step{
 }
 
 .linesChoices{
-	max-height: 70vh;
+	/*max-height: 70vh;*/
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
@@ -107,28 +108,46 @@ td.step{
 	width: 50px;
 }
 
-.header_choice{
-	font-size: 20px;
-	padding: 10px 0;
-}
-
 iframe {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	border: 0;
 	width: 100%;
-	height: 5vh;
+	/*height: 5vh;*/
 }
 
 html, body{
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .header_choice {
+	/display: table-column;
+	flex-shrink: 1;
 	/*height: 50px;*/
+
+	font-size: 20px;
+	padding: 10px 0;
 }
 
 #clearPoints {
 	margin-left: 13px;
 }
+
+
+/***
+
+CUSTOM FOR PLUGINS CONTAINER
+
+***/
+
+#header_choice_Отрезки {height: 20vh;}
+#app_frame_Отрезки_1 {height: 5vh}
+#app_frame_Отрезки_2 {height: 5vh}
+#app_frame_Отрезки_3 {height: 5vh}
+
+#header_choice_Линии_второго_порядка {height: 25vh;}
+#app_frame_Линии_второго_порядка_4 {height: 5vh}
+#app_frame_Линии_второго_порядка_5 {height: 5vh}
+#app_frame_Линии_второго_порядка_6 {height: 5vh}
+

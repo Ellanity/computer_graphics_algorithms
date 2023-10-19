@@ -1,15 +1,12 @@
-import {math} from "../../math";
-
 export function drawCurveBezier(editor, points) {
     let parsed_data = dataParserCurveBezier()
 
-
     let pointResult = [];
 
-    let p1 = points[0];
-    let p2 = points[1];
-    let p3 = points[2];
-    let p4 = points[3];
+    let p1 = parsed_data[0][0];
+    let p2 = parsed_data[0][1];
+    let p3 = parsed_data[0][2];
+    let p4 = parsed_data[0][3];
 
     let i = 0;
     let t = 0.0;
@@ -26,7 +23,7 @@ export function drawCurveBezier(editor, points) {
         let r = math.multiply(tMatrix, c);
         let x = math.subset(r, math.index(0, 0));
         let y = math.subset(r, math.index(0, 1));
-        pointResult.push({ x: Math.round(x), y: Math.round(y) });
+        pointResult.push({ x: math.round(x), y: math.round(y) });
         t += step;
         i++;
     }
@@ -36,4 +33,30 @@ export function drawCurveBezier(editor, points) {
 
 function dataParserCurveBezier(editor){
 
+    let p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, p4_x, p4_y;
+
+    document.getElementsByName("app_frame").forEach((sub_doc) => {
+        try { p1_x = parseInt(sub_doc.contentDocument.getElementById("bezie_1_x").value); } catch {}
+        try { p1_y = parseInt(sub_doc.contentDocument.getElementById("bezie_1_y").value); } catch {}
+        try { p2_x = parseInt(sub_doc.contentDocument.getElementById("bezie_2_x").value); } catch {}
+        try { p2_y = parseInt(sub_doc.contentDocument.getElementById("bezie_2_y").value); } catch {}
+        try { p3_x = parseInt(sub_doc.contentDocument.getElementById("bezie_3_x").value); } catch {}
+        try { p3_y = parseInt(sub_doc.contentDocument.getElementById("bezie_3_y").value); } catch {}
+        try { p4_x = parseInt(sub_doc.contentDocument.getElementById("bezie_4_x").value); } catch {}
+        try { p4_y = parseInt(sub_doc.contentDocument.getElementById("bezie_4_y").value); } catch {}
+    })
+
+    let points = [
+        { x: p1_x, y: p1_y },
+        { x: p2_x, y: p2_y },
+        { x: p3_x, y: p3_y },
+        { x: p4_x, y: p4_y }
+    ];
+
+    points.forEach(elem => {
+        let element = document.getElementsByClassName(elem.x + "_" + elem.y)[0];
+        element.classList.add("end");
+    });
+
+    return [points]
 }

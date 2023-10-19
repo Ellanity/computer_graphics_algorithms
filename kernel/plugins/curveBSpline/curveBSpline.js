@@ -1,8 +1,7 @@
-import {math} from "../../math";
-
 export function drawCurveBSpline(editor, points) {
     let parsed_data = dataParserCurveBSpline()
 
+    points = parsed_data[0]
     let pointResult = [];
 
     let n = points.length;
@@ -23,7 +22,7 @@ export function drawCurveBSpline(editor, points) {
             let r = math.multiply(tMatrix, c);
             let x = math.subset(r, math.index(0, 0)) / 6;
             let y = math.subset(r, math.index(0, 1)) / 6;
-            pointResult.push({ x: Math.round(x), y: Math.round(y) });
+            pointResult.push({ x: math.round(x), y: math.round(y) });
             t += step;
             k++;
         }
@@ -35,4 +34,36 @@ export function drawCurveBSpline(editor, points) {
 
 function dataParserCurveBSpline(editor) {
 
+    let p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, p4_x, p4_y, p5_x, p5_y, p6_x, p6_y;
+
+    document.getElementsByName("app_frame").forEach((sub_doc) => {
+        try { p1_x = parseInt(sub_doc.contentDocument.getElementById("bspline_1_x").value); } catch {}
+        try { p1_y = parseInt(sub_doc.contentDocument.getElementById("bspline_1_y").value); } catch {}
+        try { p2_x = parseInt(sub_doc.contentDocument.getElementById("bspline_2_x").value); } catch {}
+        try { p2_y = parseInt(sub_doc.contentDocument.getElementById("bspline_2_y").value); } catch {}
+        try { p3_x = parseInt(sub_doc.contentDocument.getElementById("bspline_3_x").value); } catch {}
+        try { p3_y = parseInt(sub_doc.contentDocument.getElementById("bspline_3_y").value); } catch {}
+        try { p4_x = parseInt(sub_doc.contentDocument.getElementById("bspline_4_x").value); } catch {}
+        try { p4_y = parseInt(sub_doc.contentDocument.getElementById("bspline_4_y").value); } catch {}
+        try { p5_x = parseInt(sub_doc.contentDocument.getElementById("bspline_3_x").value); } catch {}
+        try { p5_y = parseInt(sub_doc.contentDocument.getElementById("bspline_3_y").value); } catch {}
+        try { p6_x = parseInt(sub_doc.contentDocument.getElementById("bspline_4_x").value); } catch {}
+        try { p6_y = parseInt(sub_doc.contentDocument.getElementById("bspline_4_y").value); } catch {}
+    })
+
+    let points = [
+        { x: p1_x, y: p1_y },
+        { x: p2_x, y: p2_y },
+        { x: p3_x, y: p3_y },
+        { x: p4_x, y: p4_y },
+        { x: p5_x, y: p5_y },
+        { x: p6_x, y: p6_y }
+    ];
+
+    points.forEach(elem => {
+        let element = document.getElementsByClassName(elem.x + "_" + elem.y)[0];
+        element.classList.add("end");
+    });
+
+    return [points]
 }

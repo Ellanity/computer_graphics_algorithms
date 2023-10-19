@@ -18,7 +18,7 @@ export function drawLineDDA(editor, x1, y1, x2, y2)
         steps.push({ x: parseInt(x1), y: parseInt(y1) });
         editor.stepPoints.push(steps);
     }
-    // Округляем величины
+
     let x = x1 + 0.5 * Math.sign(dx);
     let y = y1 + 0.5 * Math.sign(dy);
 
@@ -39,7 +39,7 @@ export function drawLineDDA(editor, x1, y1, x2, y2)
         }
         editor.stepPoints.push(steps);
     }
-    // Основной цикл генерации отрезка
+
     let i = 1
     while (i <= length) {
 

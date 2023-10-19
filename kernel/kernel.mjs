@@ -64,14 +64,18 @@ class Editor {
         chaptersInMenu.forEach((chapter)=> {
             let chap = chapter.toString()
             linesChoices.innerHTML +=
-            '<div class="header_choice" id="header_choice_' + chap + '">' +
+            '<div class="header_choice" id="header_choice_' + chap.replaceAll(' ', '_') + '">' +
                 '<div style="margin-bottom: 14px;">' + chap+ '</div>' +
             '</div>'
         })
 
+        let i = 0
         Plugins.forEach((plugin) => {
-            let chapter = document.getElementById(('header_choice_' + plugin.chapter.toString()));
-            chapter.innerHTML +=  '<iframe src="plugins/' + plugin.form + '" name="app_frame" scrolling="false"></iframe>'
+            i += 1
+            let chapter = document.getElementById(('header_choice_' + plugin.chapter.toString().replaceAll(' ', '_')));
+            chapter.innerHTML +=  '<iframe src="plugins/' + plugin.form + '" name="app_frame" ' +
+                'id="app_frame_' + plugin.chapter.toString().replaceAll(' ', '_') + '_' + i.toString() + '">' +
+            '</iframe>'
         });
 
         // event listener
